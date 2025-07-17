@@ -1,0 +1,6 @@
+nohup: ignoring input
+🧠 Initializing Obsidian Web Tracker...
+📡 Logging agent_alpha to logs/obsidian/agent_alpha_log.txt
+📡 Logging agent_beta to logs/obsidian/agent_beta_log.txt
+🌐 Serving Obsidian Tracker UI at http://localhost:4000
+✅ Obsidian Tracker running. Logs in logs/obsidian/
