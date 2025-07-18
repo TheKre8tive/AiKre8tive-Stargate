@@ -47,3 +47,14 @@ To https://github.com/TheKre8tive/AiKre8tive-Stargate.git
 🔁 Running WhisperSync Auto-Loop...
 🧠 Entry added from text.txt
 📥 Auto-committing changes to GitHub...
+[main 4c90e72] 🤖 WhisperSync auto-commit
+ 2 files changed, 12 insertions(+)
+error: cannot pull with rebase: You have unstaged changes.
+error: Please commit or stash them.
+To https://github.com/TheKre8tive/AiKre8tive-Stargate.git
+   d377cb0..4c90e72  main -> main
+✅ Changes pushed successfully.
+✅ WhisperSync cycle complete.
+🔁 Running WhisperSync Auto-Loop...
+🧠 Entry added from text.txt
+📥 Auto-committing changes to GitHub...
