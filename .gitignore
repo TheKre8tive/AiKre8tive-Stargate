@@ -1,0 +1,6 @@
+.vercel
+
+# Local logs
+agent_loop.log
+whisper.log
+
