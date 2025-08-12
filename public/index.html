@@ -1,12 +1,498 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" class="scroll-smooth">
 <head>
-  <!-- 🔐 GitHub Verification -->
-  <meta name="github-domain-verification" content="YOUR_UNIQUE_CODE" />
-  <!-- 🔐 Google Site Verification -->
-  <meta name="google-site-verification" content="YOUR_GOOGLE_CODE" />
-  <title>AiKre8tive Genesis</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SovereignGTP • AI Creative Stargate (NDA Gate)</title>
+
+  <!-- Tailwind + Fonts + Icons (CDN-safe for GoDaddy) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
+
+  <style>
+    *{font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial}
+    .glass{backdrop-filter: blur(12px); background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03)); border:1px solid rgba(255,255,255,.12)}
+    .dark-glass{backdrop-filter: blur(10px); background: rgba(8,14,28,.55); border:1px solid rgba(255,255,255,.08)}
+    .gradient-ring{box-shadow: 0 0 0 1px rgba(99,102,241,.25),0 0 0 6px rgba(99,102,241,.10),0 0 40px rgba(56,189,248,.12)}
+    .hero-grid{background-image: radial-gradient(circle at 25% 25%,rgba(56,189,248,.18) 0%,transparent 50%), radial-gradient(circle at 75% 75%,rgba(244,114,182,.18) 0%,transparent 50%), radial-gradient(circle at 50% 50%,rgba(99,102,241,.18) 0%,transparent 50%);}
+    .command-terminal{background:#0f172a;border-radius:12px;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace}
+    .typing-cursor::after{content:"|"; animation:blink 1s infinite}
+    @keyframes blink{0%,50%{opacity:1}51%,100%{opacity:0}}
+    /* Moving Web */
+    #moving-web{position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:0;overflow:visible}
+    .web-line{stroke:rgba(255,255,255,.13);stroke-width:1;animation:web-move 24s linear infinite;transform-origin:center}
+    .web-line:nth-child(even){animation-direction:reverse;animation-duration:30s}
+    @keyframes web-move{0%{transform:translate(0,0) rotate(0deg)}100%{transform:translate(8px,8px) rotate(360deg)}}
+    /* Simple content protection (client-side only) */
+    .protected::selection{background:transparent}
+    .shield-blur{filter: blur(5px); opacity:.75; pointer-events:none}
+    /* Buttons */
+    .btn-primary{background: linear-gradient(90deg,#1e40af,#7c3aed); color:#fff}
+    .btn-primary:hover{filter:brightness(1.1)}
+    .btn-ghost{background:rgba(255,255,255,.06)}
+    .btn-ghost:hover{background:rgba(255,255,255,.12)}
+    .badge{padding:.25rem .5rem;border-radius:.5rem;border:1px solid rgba(255,255,255,.15);font-size:.7rem;letter-spacing:.02em}
+  </style>
 </head>
-<body>
+<body class="bg-slate-950 text-slate-100 protected">
+
+  <!-- Moving Web SVG -->
+  <svg id="moving-web" aria-hidden="true" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+    <!-- Verts -->
+    <line class="web-line" x1="10" y1="0" x2="10" y2="100"/><line class="web-line" x1="20" y1="0" x2="20" y2="100"/>
+    <line class="web-line" x1="30" y1="0" x2="30" y2="100"/><line class="web-line" x1="40" y1="0" x2="40" y2="100"/>
+    <line class="web-line" x1="50" y1="0" x2="50" y2="100"/><line class="web-line" x1="60" y1="0" x2="60" y2="100"/>
+    <line class="web-line" x1="70" y1="0" x2="70" y2="100"/><line class="web-line" x1="80" y1="0" x2="80" y2="100"/>
+    <line class="web-line" x1="90" y1="0" x2="90" y2="100"/>
+    <!-- Hori -->
+    <line class="web-line" x1="0" y1="10" x2="100" y2="10"/><line class="web-line" x1="0" y1="20" x2="100" y2="20"/>
+    <line class="web-line" x1="0" y1="30" x2="100" y2="30"/><line class="web-line" x1="0" y1="40" x2="100" y2="40"/>
+    <line class="web-line" x1="0" y1="50" x2="100" y2="50"/><line class="web-line" x1="0" y1="60" x2="100" y2="60"/>
+    <line class="web-line" x1="0" y1="70" x2="100" y2="70"/><line class="web-line" x1="0" y1="80" x2="100" y2="80"/>
+    <line class="web-line" x1="0" y1="90" x2="100" y2="90"/>
+    <!-- Diags -->
+    <line class="web-line" x1="0" y1="0" x2="100" y2="100"/><line class="web-line" x1="100" y1="0" x2="0" y2="100"/>
+  </svg>
+
+  <!-- Header -->
+  <header class="sticky top-0 z-40 glass">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="#top" class="flex items-center gap-3">
+        <span class="inline-flex h-9 w-9 rounded-lg bg-indigo-600 items-center justify-center font-bold">SG</span>
+        <span class="font-extrabold tracking-tight">SovereignGTP • AI Creative Stargate</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-6 text-sm font-semibold text-slate-300">
+        <a href="#platforms" class="hover:text-white">Modules</a>
+        <a href="#agents" class="hover:text-white">Agents</a>
+        <a href="#assignments" class="hover:text-white">Assignments</a>
+        <a href="#console" class="hover:text-white">Console</a>
+        <button id="scheduleBtn" class="px-4 py-2 rounded-lg btn-primary">Schedule Video Conference</button>
+      </nav>
+      <button id="menuBtn" class="md:hidden inline-flex items-center justify-center h-10 w-10 rounded-lg bg-white/10">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+    <div id="mobileMenu" class="md:hidden hidden border-t border-white/10">
+      <nav class="px-4 py-3 grid grid-cols-2 gap-3 text-sm text-slate-300">
+        <a href="#platforms" class="bg-white/5 rounded-lg p-3">Modules</a>
+        <a href="#agents" class="bg-white/5 rounded-lg p-3">Agents</a>
+        <a href="#assignments" class="bg-white/5 rounded-lg p-3">Assignments</a>
+        <a href="#console" class="bg-white/5 rounded-lg p-3">Console</a>
+        <button id="scheduleBtnMob" class="bg-indigo-600 rounded-lg p-3 font-semibold">Schedule</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section id="summary" class="relative hero-grid">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 lg:py-20">
+      <div class="grid lg:grid-cols-2 gap-10 items-center">
+        <div>
+          <h1 class="text-4xl lg:text-5xl font-extrabold leading-tight">
+            Sovereign-grade AI Stack for Creators, Commerce & Governance
+          </h1>
+          <p class="mt-5 text-slate-300 text-lg">
+            NDA-gated preview. Sign to reveal full capability set (25 planetary agents, 27 modules, biometric payments, trust ops).
+          </p>
+          <div class="mt-6 flex flex-wrap gap-3">
+            <button id="openNDA" class="px-5 py-3 rounded-xl btn-primary">Enter NDA Portal</button>
+            <a href="#agents" class="px-5 py-3 rounded-xl btn-ghost">View Agents</a>
+            <a href="#platforms" class="px-5 py-3 rounded-xl btn-ghost">View Modules</a>
+          </div>
+          <p class="mt-3 text-xs text-slate-400">*Local-only demo. Backend endpoints simulated until wired.</p>
+        </div>
+        <div class="dark-glass rounded-2xl p-6 border-white/10 gradient-ring">
+          <div class="grid grid-cols-2 gap-4 text-center">
+            <div class="bg-white/5 rounded-xl p-5">
+              <div class="text-3xl font-extrabold">$25.9M</div>
+              <div class="text-xs text-slate-300">Pre-Launch Stack Value</div>
+            </div>
+            <div class="bg-white/5 rounded-xl p-5">
+              <div class="text-3xl font-extrabold">SOC 2</div>
+              <div class="text-xs text-slate-300">Security • Availability • Privacy</div>
+            </div>
+            <div class="bg-white/5 rounded-xl p-5">
+              <div class="text-3xl font-extrabold">On-Chain</div>
+              <div class="text-xs text-slate-300">Tokenized Trust • BLOC</div>
+            </div>
+            <div class="bg-white/5 rounded-xl p-5">
+              <div class="text-3xl font-extrabold">Biometric</div>
+              <div class="text-xs text-slate-300">Bio-Auth • MyBuyO</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p id="ndaHint" class="mt-6 text-sm text-amber-300 hidden"><i class="fa-solid fa-lock mr-2"></i>Content blurred until NDA acceptance.</p>
+    </div>
+  </section>
+
+  <!-- Modules (27) -->
+  <section id="platforms" class="py-12 border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between">
+        <h2 class="text-2xl font-extrabold">Sovereign Modules</h2>
+        <span id="moduleStatusBadge" class="badge">NDA Required</span>
+      </div>
+      <p class="mt-2 text-slate-300 text-sm">Each module stays “preview only” until NDA is signed. Click a tile to see details.</p>
+      <div id="modulesGrid" class="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5"></div>
+    </div>
+  </section>
+
+  <!-- Agents (25) -->
+  <section id="agents" class="py-12 border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between">
+        <h2 class="text-2xl font-extrabold">Planetary Agents (25)</h2>
+        <span id="agentStatusBadge" class="badge">NDA Required</span>
+      </div>
+      <p class="mt-2 text-slate-300 text-sm">Each agent has a role, image, and port. Activation gated by NDA.</p>
+      <div id="agentsGrid" class="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5"></div>
+    </div>
+  </section>
+
+  <!-- Assignments -->
+  <section id="assignments" class="py-12 border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between gap-4 mb-4">
+        <h2 class="text-2xl font-extrabold">Agent → Module Assignments</h2>
+        <div class="flex flex-wrap gap-2">
+          <button id="autoAssignBtn" class="px-4 py-2 rounded-lg btn-ghost border border-white/10">⚖️ Auto-assign</button>
+          <button id="exportAssignBtn" class="px-4 py-2 rounded-lg btn-ghost border border-white/10">⬇️ Export JSON</button>
+          <label class="px-3 py-2 rounded-lg btn-ghost border border-white/10 cursor-pointer">⬆️ Import JSON
+            <input id="importAssignInput" type="file" accept="application/json" class="hidden">
+          </label>
+          <button id="clearAssignBtn" class="px-4 py-2 rounded-lg btn-ghost border border-white/10">🧹 Clear</button>
+        </div>
+      </div>
+      <p class="text-sm text-slate-300">Owners must be NDA-accepted. Emails validated against the local Sovereign Key registry.</p>
+      <div class="mt-6 overflow-x-auto">
+        <table class="min-w-full text-sm">
+          <thead>
+            <tr class="text-left text-slate-300">
+              <th class="py-3 pr-4">#</th><th class="py-3 pr-4">Agent</th><th class="py-3 pr-4">Role</th>
+              <th class="py-3 pr-4">Module</th><th class="py-3 pr-4">Owner (email)</th>
+              <th class="py-3 pr-4">SLA</th><th class="py-3 pr-4">Region</th><th class="py-3 pr-4">Status</th><th class="py-3 pr-4">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="assignBody" class="divide-y divide-white/10"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Console -->
+  <section id="console" class="py-12 border-t border-white/10">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-8">
+        <h2 class="text-2xl font-extrabold">Command Console</h2>
+        <p class="text-slate-300 text-sm">Deploy & manage agents. (Simulated until backend wired.)</p>
+      </div>
+      <div class="command-terminal overflow-hidden">
+        <div class="bg-gray-800 px-5 py-3 flex items-center gap-2 select-none">
+          <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+          <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+          <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+          <span class="text-gray-400 text-sm ml-2">SovereignGTP Console</span>
+        </div>
+        <div class="p-6 space-y-3 text-green-400 text-sm">
+          <div class="flex flex-wrap">
+            <span class="text-blue-400">sovereign@stargate:~$</span>
+            <span class="ml-2 typing-cursor">deploy --agents mars venus earth jupiter</span>
+          </div>
+          <div id="consoleLog" class="text-gray-300 space-y-1">
+            <div>🚀 Initializing deployment… (simulated)</div>
+          </div>
+        </div>
+      </div>
+      <div class="mt-6 flex gap-3 justify-center">
+        <button id="runCmd" class="px-5 py-3 rounded-lg btn-primary">Run Command</button>
+        <button id="clearCmd" class="px-5 py-3 rounded-lg btn-ghost border border-white/10">Clear</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-slate-900/70 py-10 mt-10 text-center text-gray-400 text-sm">
+    &copy; <span id="year"></span> SovereignGTP • AI Creative Stargate. All rights reserved.
+  </footer>
+
+  <!-- NDA Modal -->
+  <div id="ndaModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden">
+    <div class="min-h-full flex items-center justify-center p-4">
+      <div class="w-full max-w-xl dark-glass border border-white/10 rounded-2xl p-6">
+        <div class="flex items-center justify-between">
+          <h3 class="text-xl font-bold">Sovereign NDA Portal</h3>
+          <button id="closeNDA" class="text-slate-300 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <p class="mt-2 text-sm text-slate-300">
+          Read & accept to unlock the full experience. One key per NDA’ed user until BLOC chain-link completes.
+        </p>
+        <div class="mt-4 space-y-3">
+          <label class="block text-sm">Your Email</label>
+          <input id="ndaEmail" type="email" placeholder="you@company.com" class="w-full rounded-lg bg-white/5 border border-white/10 px-3 py-2">
+          <label class="block text-sm">Sovereign Key (enter to encrypt & bind)</label>
+          <input id="ndaKey" type="password" placeholder="TotalRecall_#MrGGTP_Sovereign_#1" class="w-full rounded-lg bg-white/5 border border-white/10 px-3 py-2">
+          <div class="bg-white/5 rounded-lg p-3 text-xs text-slate-300 h-28 overflow-auto border border-white/10">
+            <strong>Digital NDA (Summary)</strong><br/>
+            • No recording, redistribution, or reverse engineering.<br/>
+            • Confidentiality survives 5 years or until public domain via our disclosure.<br/>
+            • Consent to local tracking for evidence & access control (device only in this demo).<br/>
+            • Violations may trigger access revocation & legal remedies.
+          </div>
+          <label class="inline-flex items-center gap-2 text-sm">
+            <input id="ndaAgree" type="checkbox" class="rounded bg-white/10 border-white/20">
+            I have read and agree to the Digital NDA terms.
+          </label>
+          <button id="acceptNDA" class="w-full px-5 py-3 rounded-lg btn-primary">Accept & Unlock</button>
+          <p id="ndaError" class="text-rose-400 text-sm hidden">Please fill email, key, and agree to proceed.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Schedule Modal -->
+  <div id="scheduleModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden">
+    <div class="min-h-full flex items-center justify-center p-4">
+      <div class="w-full max-w-lg dark-glass border border-white/10 rounded-2xl p-6">
+        <div class="flex items-center justify-between">
+          <h3 class="text-xl font-bold">Schedule a Video Conference</h3>
+          <button id="closeSchedule" class="text-slate-300 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <p class="mt-2 text-sm text-slate-300">Pick a time and we’ll send a calendar invite.</p>
+        <div class="mt-4 grid sm:grid-cols-2 gap-3">
+          <a href="https://calendly.com/" target="_blank" rel="noopener" class="px-4 py-3 rounded-lg btn-primary text-center">Open Scheduler</a>
+          <a href="mailto:hello@sovereign.example?subject=Video%20Conference%20Request" class="px-4 py-3 rounded-lg btn-ghost border border-white/10 text-center">Email Us</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const SIMULATE_BACKEND = true;
+    const API_ENDPOINTS = { ndaAccept: "/api/nda/accept", assignments: "/api/assignments", deploy: "/api/deploy" };
+    const MODULES = [
+      ["MyBuyO","Biometric Payments"],["VideoCourts","AI LegalTech"],["ExplorerMars","Web3 Mapping"],
+      ["BioBLOC","Biometrics→Blockchain"],["NLP2CODE","Dev Agents"],["CoManDeck","Dashboards"],
+      ["SLAMAR","Spatial/XR"],["HeylloGen","Content/Comms"],["TrustOps","On-Chain Trust"],
+      ["SentryOps","Observability"],["IdentityHub","KYC/KYB"],["SovereignDNS","Domains/DNS"],
+      ["EdgeAgents","Edge Runtime"],["VectorVault","Embeddings"],["DataLake","Lakehouse"],
+      ["BrokerX","Queues/Events"],["KeyMGR","Secrets/Keys"],["AuditTrail","Compliance"],
+      ["Cockpit","Telemetry"],["Dedilink","Network"],["LoadBalancer","Edge"],["VPC","Networking"],
+      ["Kapsule","Kubernetes"],["GenerativeAPI","Inference"],["ManagedInference","Deploy Models"],
+      ["ObjectStorage","Storage"],["TerraformOps","IaC"]
+    ];
+    const AGENTS = [
+      ["Mercury","Push2","Secure commits, notarized deploy gates.","https://picsum.photos/seed/mercury/480/320",8001],
+      ["Venus","Analytics","Sentiment & data processing.","https://picsum.photos/seed/venus/480/320",8002],
+      ["Earth","Coordinator","System and load balancing.","https://picsum.photos/seed/earth/480/320",8003],
+      ["Mars","Creative","Generative content & assets.","https://picsum.photos/seed/mars/480/320",8004],
+      ["Jupiter","Processor","Heavy compute & optimization.","https://picsum.photos/seed/jupiter/480/320",8005],
+      ["Saturn","Optimizer","Performance & tuning.","https://picsum.photos/seed/saturn/480/320",8006],
+      ["Uranus","Innovator","Experimental solutions.","https://picsum.photos/seed/uranus/480/320",8007],
+      ["Neptune","Deep Processor","Deep learning pipelines.","https://picsum.photos/seed/neptune/480/320",8008],
+      ["Pluto","Archivist","Cold storage & recall.","https://picsum.photos/seed/pluto/480/320",8009],
+      ["Ceres","Indexer","Metadata & search.","https://picsum.photos/seed/ceres/480/320",8010],
+      ["Eris","Adversary","Red teaming & tests.","https://picsum.photos/seed/eris/480/320",8011],
+      ["Haumea","Shard","Sharding & scaling.","https://picsum.photos/seed/haumea/480/320",8012],
+      ["Makemake","Cache","Global cache & edges.","https://picsum.photos/seed/makemake/480/320",8013],
+      ["Io","Transcoder","Media pipelines.","https://picsum.photos/seed/io/480/320",8014],
+      ["Europa","Notebook","Research synthesis.","https://picsum.photos/seed/europa/480/320",8015],
+      ["Ganymede","Guardian","Security posture.","https://picsum.photos/seed/ganymede/480/320",8016],
+      ["Callisto","Watcher","Monitor & alerts.","https://picsum.photos/seed/callisto/480/320",8017],
+      ["Titan","Voice","Speech & comms.","https://picsum.photos/seed/titan/480/320",8018],
+      ["Rhea","Router","Inter-agent routing.","https://picsum.photos/seed/rhea/480/320",8019],
+      ["Iapetus","QA","Test & validation.","https://picsum.photos/seed/iapetus/480/320",8020],
+      ["Dione","Contracts","Smart-contract ops.","https://picsum.photos/seed/dione/480/320",8021],
+      ["Tethys","Ledger","Accounting & tokens.","https://picsum.photos/seed/tethys/480/320",8022],
+      ["Enceladus","Watermark","Provenance & stamps.","https://picsum.photos/seed/enceladus/480/320",8023],
+      ["Mimas","Keys","Key & HSM proxy.","https://picsum.photos/seed/mimas/480/320",8024],
+      ["Oberon","Orchestrator","Flows & jobs.","https://picsum.photos/seed/oberon/480/320",8025]
+    ];
+
+    const $ = (id)=>document.getElementById(id);
+    const logObsidian = (event, meta={})=>{
+      try{
+        const key="SovereignObsidianLog";
+        const arr=JSON.parse(localStorage.getItem(key)||"[]");
+        arr.push({ts:new Date().toISOString(), event, meta});
+        localStorage.setItem(key, JSON.stringify(arr));
+      }catch(e){}
+    };
+
+    const NDA_REG_KEY="SovereignNDAKeyRegistry";
+    const NDA_RECEIPT="SovereignNDAReceipt";
+    const HASH_SALT="SovGTP_Demo_Salt";
+    function sha256Sync(str){let h=0; for(let i=0;i<str.length;i++){h=(h<<5)-h+str.charCodeAt(i); h|=0;} return ("00000000"+(h>>>0).toString(16)).slice(-8); }
+    function storeNDA(email, key){
+      const lower=(email||"").toLowerCase().trim();
+      if(!lower||!key) return false;
+      const reg = (function(){try{return JSON.parse(localStorage.getItem(NDA_REG_KEY)||"{}")}catch(e){return {}}})();
+      if(reg[lower]){ return {ok:false, reason:"Key already assigned to this email on this device."}; }
+      const hash = sha256Sync(HASH_SALT+"|"+key+"|"+lower);
+      reg[lower]={ hash, created:new Date().toISOString(), chainLinked:false };
+      localStorage.setItem(NDA_REG_KEY, JSON.stringify(reg));
+      localStorage.setItem(NDA_RECEIPT, JSON.stringify({email:lower, ts:new Date().toISOString()}));
+      logObsidian("nda.accepted",{email:lower});
+      return {ok:true};
+    }
+    function hasNDA(){ try{ return !!JSON.parse(localStorage.getItem(NDA_RECEIPT)||"{}").email; }catch(e){return false;} }
+
+    function blurProtected(on){
+      const grids=[ $("modulesGrid"), $("agentsGrid") ];
+      grids.forEach(g=>{ if(!g) return; if(on){ g.classList.add("shield-blur"); } else { g.classList.remove("shield-blur"); }});
+      $("ndaHint")?.classList.toggle("hidden", !on);
+      $("moduleStatusBadge").textContent = on? "NDA Required":"Unlocked";
+      $("agentStatusBadge").textContent  = on? "NDA Required":"Unlocked";
+    }
+
+    function renderModules(){
+      const grid = $("modulesGrid"); grid.innerHTML="";
+      MODULES.forEach(([name,cat])=>{
+        const card = document.createElement("button");
+        card.className="dark-glass text-left rounded-2xl p-5 border border-white/10 hover:bg-white/5 transition";
+        card.innerHTML=`<div class="flex items-start gap-3">
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center text-xl"><i class="fa-solid fa-cubes"></i></div>
+          <div><div class="font-bold">${name}</div><div class="text-xs text-slate-300">${cat}</div></div></div>
+          <div class="mt-4 text-sm text-slate-300">Preview only. NDA unlocks full controls & deep-link docs.</div>`;
+        card.addEventListener("click",()=>{ alert(name+" — "+cat+"\n\nDetails available after NDA unlock."); });
+        grid.appendChild(card);
+      });
+    }
+
+    function renderAgents(){
+      const grid=$("agentsGrid"); grid.innerHTML="";
+      AGENTS.forEach(([name,role,desc,img,port])=>{
+        const card=document.createElement("div");
+        card.className="dark-glass rounded-2xl overflow-hidden border border-white/10";
+        card.innerHTML=`<img src="${img}" alt="${name} image" class="w-full h-36 object-cover">
+          <div class="p-5">
+            <div class="flex items-center justify-between">
+              <div><div class="font-bold text-[1.05rem]">${name}</div><div class="text-xs text-slate-300">${role} • Port ${port}</div></div>
+              <span class="badge">Inactive</span></div>
+            <p class="mt-3 text-sm text-slate-300">${desc}</p>
+            <div class="mt-4 flex gap-2">
+              <button class="px-3 py-2 rounded-lg btn-primary" data-act="${name}">Activate</button>
+              <button class="px-3 py-2 rounded-lg btn-ghost border border-white/10" data-stats="${name}">Stats</button>
+            </div></div>`;
+        grid.appendChild(card);
+      });
+      grid.querySelectorAll("[data-act]").forEach(btn=>{
+        btn.addEventListener("click", ()=>{
+          if(!hasNDA()){ alert("Please accept the NDA to activate agents."); return; }
+          const agent=btn.getAttribute("data-act");
+          logObsidian("agent.activate",{agent});
+          alert("Simulated activation: "+agent);
+        });
+      });
+      grid.querySelectorAll("[data-stats]").forEach(btn=>{
+        btn.addEventListener("click", ()=>{const agent=btn.getAttribute("data-stats"); alert(agent+" status: Online (simulated).");});
+      });
+    }
+
+    const ASSIGN_KEY = "SovereignAssignments";
+    const NDA_REG_KEY2="SovereignNDAKeyRegistry";
+    function loadAssignments(){ try{return JSON.parse(localStorage.getItem(ASSIGN_KEY)||"{}")}catch(e){return {}} }
+    function saveAssignments(o){ try{localStorage.setItem(ASSIGN_KEY,JSON.stringify(o))}catch(e){} }
+    function isNDAOwner(email){
+      if(!email) return false;
+      try{ const reg=JSON.parse(localStorage.getItem(NDA_REG_KEY2)||"{}"); return !!reg[email.toLowerCase()]; }catch(e){return false;}
+    }
+    const MODULE_OPTIONS_HTML = (()=>{
+      return ['<option value="">— select —</option>'].concat(MODULES.map(([n,c])=>`<option value="${n}">${n} — ${c}</option>`)).join('');
+    })();
+    const SLA_OPTIONS = ["Gold (99.9%)","Silver (99.5%)","Bronze (99.0%)"];
+    const REGION_OPTIONS = ["EU-West","EU-Central","US-East","US-West","AP-Singapore","AP-Sydney"];
+
+    function renderAssignments(){
+      const body=$("assignBody"); body.innerHTML="";
+      const state=loadAssignments();
+      AGENTS.forEach(([name,role],idx)=>{
+        const id=(idx+1).toString().padStart(2,"0");
+        const existing=state[name]||{module:"",owner:"",sla:SLA_OPTIONS[1],region:"US-East",status:"Inactive"};
+        const ndaOK=isNDAOwner(existing.owner);
+        const tr=document.createElement("tr");
+        tr.innerHTML=`<td class="py-3 pr-4 text-slate-400">${id}</td>
+          <td class="py-3 pr-4 font-semibold">${name}</td>
+          <td class="py-3 pr-4 text-slate-300">${role}</td>
+          <td class="py-3 pr-4"><select data-k="module" data-agent="${name}" class="w-56 max-w-full px-2 py-1 rounded bg-black/30 border border-white/10">${MODULE_OPTIONS_HTML}</select></td>
+          <td class="py-3 pr-4"><input data-k="owner" data-agent="${name}" class="w-64 max-w-full px-2 py-1 rounded bg-black/30 border border-white/10" placeholder="owner@company.com" value="${existing.owner||''}"></td>
+          <td class="py-3 pr-4"><select data-k="sla" data-agent="${name}" class="px-2 py-1 rounded bg-black/30 border border-white/10">${SLA_OPTIONS.map(s=>`<option ${s===existing.sla?'selected':''}>${s}</option>`).join('')}</select></td>
+          <td class="py-3 pr-4"><select data-k="region" data-agent="${name}" class="px-2 py-1 rounded bg-black/30 border border-white/10">${REGION_OPTIONS.map(r=>`<option ${r===existing.region?'selected':''}>${r}</option>`).join('')}</select></td>
+          <td class="py-3 pr-4"><span class="px-2 py-1 rounded ${ndaOK?'bg-emerald-600/20 text-emerald-300 border border-emerald-600/30':'bg-amber-600/20 text-amber-300 border border-amber-600/30'}">${ndaOK?'Owner NDA’ed':'Owner not NDA’ed'}</span></td>
+          <td class="py-3 pr-4"><button data-k="save" data-agent="${name}" class="px-3 py-1.5 rounded btn-ghost border border-white/10">Save</button></td>`;
+        body.appendChild(tr);
+        tr.querySelector('select[data-k="module"]').value=existing.module||"";
+        tr.querySelector('button[data-k="save"]').addEventListener('click', ()=>{
+          const module = tr.querySelector('select[data-k="module"]').value;
+          const owner  = tr.querySelector('input[data-k="owner"]').value.trim().toLowerCase();
+          const sla    = tr.querySelector('select[data-k="sla"]').value;
+          const region = tr.querySelector('select[data-k="region"]').value;
+          if(!module){ alert("Select a module."); return; }
+          if(!owner){ alert("Enter an owner email."); return; }
+          if(!isNDAOwner(owner)){ alert("Owner must accept NDA on this device."); return; }
+          const s=loadAssignments();
+          s[name]={module,owner,sla,region,status:"Assigned"};
+          saveAssignments(s);
+          alert(`Saved assignment for ${name} → ${module}`);
+        });
+      });
+    }
+
+    function appendConsole(line){ const log=document.getElementById("consoleLog"); const div=document.createElement("div"); div.textContent=line; log.appendChild(div); }
+
+    function init(){
+      document.getElementById("year").textContent=new Date().getFullYear();
+      renderModules(); renderAgents(); renderAssignments();
+      const has = hasNDA(); (function blur(b){const grids=[document.getElementById("modulesGrid"),document.getElementById("agentsGrid")]; grids.forEach(g=>{if(!g)return; b?g.classList.add("shield-blur"):g.classList.remove("shield-blur")}); document.getElementById("ndaHint").classList.toggle("hidden", !b); document.getElementById("moduleStatusBadge").textContent=b?"NDA Required":"Unlocked"; document.getElementById("agentStatusBadge").textContent=b?"NDA Required":"Unlocked";})(!has);
+
+      document.getElementById("menuBtn").addEventListener("click",()=> document.getElementById("mobileMenu").classList.toggle("hidden"));
+      const openSched=()=> document.getElementById("scheduleModal").classList.remove("hidden");
+      const closeSched=()=> document.getElementById("scheduleModal").classList.add("hidden");
+      document.getElementById("scheduleBtn").addEventListener("click",openSched);
+      document.getElementById("scheduleBtnMob").addEventListener("click",openSched);
+      document.getElementById("closeSchedule").addEventListener("click",closeSched);
+
+      const openNDA=()=>{ document.getElementById("ndaModal").classList.remove("hidden"); };
+      const closeNDA=()=>{ document.getElementById("ndaModal").classList.add("hidden"); };
+      document.getElementById("openNDA").addEventListener("click",openNDA);
+      document.getElementById("closeNDA").addEventListener("click",closeNDA);
+      document.getElementById("acceptNDA").addEventListener("click", ()=>{
+        const email=document.getElementById("ndaEmail").value.trim();
+        const key=document.getElementById("ndaKey").value.trim();
+        const agree=document.getElementById("ndaAgree").checked;
+        if(!email||!key||!agree){ document.getElementById("ndaError").classList.remove("hidden"); return; }
+        document.getElementById("ndaError").classList.add("hidden");
+        const res=storeNDA(email,key);
+        if(!res.ok){ alert(res.reason||"NDA store error."); return; }
+        (function unblur(){ const grids=[document.getElementById("modulesGrid"),document.getElementById("agentsGrid")]; grids.forEach(g=>{g&&g.classList.remove("shield-blur")}); document.getElementById("ndaHint").classList.add("hidden"); document.getElementById("moduleStatusBadge").textContent="Unlocked"; document.getElementById("agentStatusBadge").textContent="Unlocked";})();
+        closeNDA();
+        alert("NDA accepted. Welcome, "+email+".");
+      });
+
+      document.getElementById("runCmd").addEventListener("click", ()=>{ if(!hasNDA()){ alert("NDA required first."); return; } appendConsole("Deploying Mars, Venus, Earth, Jupiter..."); setTimeout(()=>appendConsole("✅ All agents online (simulated)."), 800);});
+      document.getElementById("clearCmd").addEventListener("click", ()=> document.getElementById("consoleLog").innerHTML='<div>🚀 Initializing deployment… (simulated)</div>');
+
+      document.getElementById("autoAssignBtn").addEventListener("click", ()=>{
+        const s=loadAssignments(); let i=0; const mods=MODULES.map(([n])=>n);
+        let defaultOwner=""; try{defaultOwner=(JSON.parse(localStorage.getItem("SovereignNDAReceipt")||"{}").email)||"";}catch(e){}
+        AGENTS.forEach(([name])=>{ s[name]={module:mods[i%mods.length], owner:defaultOwner, sla:"Silver (99.5%)", region:"US-East", status:"Assigned"}; i++; });
+        saveAssignments(s); renderAssignments();
+      });
+      document.getElementById("exportAssignBtn").addEventListener("click", ()=>{
+        const data=JSON.stringify(loadAssignments(),null,2); const b=new Blob([data],{type:"application/json"}); const url=URL.createObjectURL(b); const a=document.createElement("a"); a.href=url; a.download="sovereign-assignments.json"; a.click(); URL.revokeObjectURL(url);
+      });
+      document.getElementById("importAssignInput").addEventListener("change",(e)=>{
+        const f=e.target.files[0]; if(!f) return; const fr=new FileReader();
+        fr.onload=()=>{ try{ const obj=JSON.parse(fr.result); const notOK=[...new Set(Object.values(obj).map(v=>v.owner).filter(Boolean))].filter(em=>!isNDAOwner(em)); if(notOK.length){ alert("Warning: some owners not NDA’ed on this device:\n"+notOK.join(", ")); } saveAssignments(obj); renderAssignments(); }catch(err){ alert("Invalid JSON."); } };
+        fr.readAsText(f);
+      });
+      document.getElementById("clearAssignBtn").addEventListener("click", ()=>{ if(confirm("Clear all assignments?")){ saveAssignments({}); renderAssignments(); } });
+
+      document.addEventListener("contextmenu", e=>e.preventDefault());
+      document.addEventListener("keydown", e=>{ if((e.ctrlKey||e.metaKey)&&["s","p","u","c"].includes(e.key.toLowerCase())) e.preventDefault(); });
+    }
+    init();
+  </script>
 </body>
 </html>
