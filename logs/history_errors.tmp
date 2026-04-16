@@ -1,0 +1,13 @@
+if [ ! -d "$ANCHOR_DIR/logs" ]; then     echo "⚠️ Agent anchors not found. Re-deploying..."
+# c25_master_recovery.sh - Fixes failed commands & deploys full system
+set -euo pipefail
+echo "Fixing failed commands and deploying agents..."
+# --- FIX 1: Ensure Phase 3 Script Exists (The one that failed) ---
+# --- FIX 2: Run Phase 3 Script (The one that failed before) ---
+set -euo pipefail
+    if ! validate_script "$script_path"; then         echo "️  Skipping $name due to script errors.";         return;     fi;     
+    if [ ! -f "$script" ]; then         echo "⚠️  Script not found: $script. Generating placeholder..." | tee -a "$LOG_FILE"
+    echo "Running $name..." | tee -a "$LOG_FILE";     if "$script" 2>&1 | tee -a "$LOG_FILE"; then         echo "✅ SUCCESS: $name completed." | tee -a "$LOG_FILE";         return 0;     else         echo "⚠️  FAILED: $name exited with error code $?." | tee -a "$LOG_FILE"
+            else                 ((FAIL_COUNT++));             fi;         fi;     done; else     echo "⚠️  Scripts directory not found. Creating default structure...";     mkdir -p "$SCRIPT_DIR"
+# 2. Write the clean script using cat (avoids paste errors)
+set -euo pipefail
