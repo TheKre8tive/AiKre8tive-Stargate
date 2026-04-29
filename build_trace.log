@@ -1,0 +1,6 @@
+\n=== Build started at 2026-04-29T00:01:34.146264 ===\nnpm error Missing script: "build"
+npm error
+npm error To see a list of scripts, run:
+npm error   npm run
+npm error A complete log of this run can be found in: /data/data/com.termux/files/home/.npm/_logs/2026-04-29T04_01_34_607Z-debug-0.log
+\n=== Build ended at 2026-04-29T00:01:34.886333 ===\n
